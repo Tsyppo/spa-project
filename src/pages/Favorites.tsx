@@ -1,14 +1,9 @@
 import React from 'react'
-import { Photo } from '../types/photo'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 import PhotoItem from '../components/PhotoItem'
 import Layout from '../components/Layout'
 
-interface Props {
-	photo: Photo
-}
-
-const Favorites: React.FC<Props> = ({ photo }) => {
+const Favorites: React.FC = () => {
 	// Assuming you have a favorites list
 	const { photos } = useTypedSelector(state => state.photos)
 
