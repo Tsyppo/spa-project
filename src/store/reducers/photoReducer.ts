@@ -4,6 +4,7 @@ import { PhotoAction, PhotoActionType, PhotoState } from '../../types/photo'
 
 const initialState: PhotoState = {
 	photos: [],
+	searchTerm: '',
 }
 
 const photoReducer = (
@@ -29,6 +30,11 @@ const photoReducer = (
 						? { ...photo, liked: !photo.liked }
 						: photo
 				),
+			}
+		case PhotoActionType.SET_SEARCH_TERM:
+			return {
+				...state,
+				searchTerm: action.payload,
 			}
 		default:
 			return state

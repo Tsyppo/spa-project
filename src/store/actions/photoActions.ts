@@ -28,6 +28,18 @@ export const toggleLike = (id: number) => {
 	}
 }
 
+export const setSearchTerm = (searchTerm: string) => {
+	return (dispatch: Dispatch<PhotoAction>) => {
+		dispatch({
+			type: PhotoActionType.SET_SEARCH_TERM,
+			payload: searchTerm,
+		})
+	}
+}
+
+let currentId = 0
+
 const generateNumericId = (): number => {
-	return Math.floor(Math.random() * 1000000) // Пример генерации id в диапазоне до 1 миллиона
+	currentId++
+	return currentId
 }

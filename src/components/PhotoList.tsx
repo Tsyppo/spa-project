@@ -1,17 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import PhotoItem from './PhotoItem'
 import { useTypedSelector } from '../hooks/useTypedSelector'
-
-const Input = styled.input`
-	flex: 1;
-	padding: 8px;
-	margin-right: 10px;
-	margin-bottom: 10px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	font-size: 16px;
-`
+import { Photo } from '../types/photo'
 
 const PhotoListContainer = styled.div`
 	display: flex;
@@ -24,26 +15,28 @@ const PhotoItemWrapper = styled.div`
 	margin-bottom: 10px;
 `
 
-const PhotoList: React.FC = () => {
-	const { photos } = useTypedSelector(state => state.photos)
-	const [searchTerm, setSearchTerm] = useState('')
+interface PhotoListProps {
+	isFavoritePage?: boolean // Флаг, указывающий на то, является ли страница Favorite
+}
 
-	const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchTerm(event.target.value)
+const PhotoList: React.FC<PhotoListProps> = ({ isFavoritePage = false }) => {
+	const { photos, searchTerm } = useTypedSelector(state => ({
+		photos: state.photos.photos,
+		searchTerm: state.photos.searchTerm,
+	}))
+
+	let filteredPhotos: Photo[] = photos
+
+	if (isFavoritePage) {
+		filteredPhotos = filteredPhotos.filter(photo => photo.liked)
 	}
 
-	const filteredPhotos = photos.filter(photo =>
+	filteredPhotos = filteredPhotos.filter(photo =>
 		photo.title.toLowerCase().includes(searchTerm.toLowerCase())
 	)
 
 	return (
 		<div>
-			<Input
-				type='text'
-				placeholder='Search by title...'
-				value={searchTerm}
-				onChange={handleSearch}
-			/>
 			<PhotoListContainer>
 				{filteredPhotos.map(photo => (
 					<PhotoItemWrapper key={photo.id}>

@@ -1,7 +1,8 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled, { createGlobalStyle } from 'styled-components'
 import SiteIcon from '../assets/images/Panda.svg'
+import { useActions } from '../hooks/useAction'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -62,8 +63,19 @@ const NavLink = styled(Link)`
 
 const Content = styled.main`
 	margin-top: 80px;
-	margin-left: 250px; /* Ширина боковой панели */
+	margin-left: 250px;
 	padding: 20px;
+`
+
+const SearchInput = styled.input`
+	flex: 0 0 auto;
+	padding: 8px;
+	margin-right: 10px;
+	margin-left: 400px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+	width: 700px;
 `
 
 interface LayoutProps {
@@ -71,16 +83,31 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+	const { setSearchTerm } = useActions()
+	const [searchTerm, setSearchTermLocal] = useState('')
+
+	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const { value } = event.target
+		setSearchTerm(value)
+		setSearchTermLocal(value)
+	}
+
 	return (
 		<>
 			<GlobalStyle />
 			<Header>
 				<IconPanda src={SiteIcon} />
 				<Title>Галерея</Title>
+				<SearchInput
+					type='text'
+					placeholder='Поиск по названию...'
+					value={searchTerm}
+					onChange={handleSearchChange}
+				/>
 			</Header>
 			<Sidebar>
 				<Navigation>
-					<NavLink to='/'>Home</NavLink>
+					<NavLink to='/photos'>Home</NavLink>
 					<NavLink to='/favorites'>Favorites</NavLink>
 				</Navigation>
 			</Sidebar>
