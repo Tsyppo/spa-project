@@ -3,6 +3,6 @@ import { thunk } from 'redux-thunk'
 import { RootState, rootReducer } from './reducers'
 
 export const store = createStore(
-	rootReducer as unknown as Reducer<Partial<RootState>>,
+	rootReducer as unknown as Reducer<RootState>,
 	applyMiddleware(thunk)
 )

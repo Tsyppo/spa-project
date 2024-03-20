@@ -3,18 +3,27 @@ import styled from 'styled-components'
 import { Photo } from '../types/photo'
 import { useActions } from '../hooks/useAction'
 import { Link } from 'react-router-dom'
+import { useTypedSelector } from '../hooks/useTypedSelector'
+import { englishLocale, russianLocale } from '../theme/locales'
 
 const Wrapper = styled.div`
 	width: 300px;
 	padding: 10px;
-	border: 1px solid #ccc;
 	border-radius: 5px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	margin-bottom: 20px;
+	border: ${props => props.theme.border};
+	transition: 0.3s ease;
 `
 
-const Title = styled.h3`
+const TitleButton = styled.h3`
 	margin: 0;
+`
+
+const Title = styled(TitleButton)`
+	color: ${props => props.theme.text};
+	margin-bottom: 10px;
+	padding-left: 5px;
 `
 
 const Image = styled.img`
@@ -40,7 +49,6 @@ const Button = styled.button`
 	cursor: pointer;
 	transition: background-color 0.3s ease;
 	background-color: #858585;
-
 	&:hover {
 		background-color: #707070;
 	}
@@ -74,6 +82,9 @@ interface Props {
 }
 
 const PhotoItem: React.FC<Props> = ({ photo }) => {
+	const { language } = useTypedSelector(state => state.settings)
+	const locale = language === 'en' ? englishLocale : russianLocale
+
 	const { toggleLike, removePhoto } = useActions()
 	const [liked, setLiked] = useState(photo.liked)
 
@@ -94,10 +105,14 @@ const PhotoItem: React.FC<Props> = ({ photo }) => {
 			<Image src={photo.imageUrl} alt={photo.title} />
 			<ButtonContainer>
 				<UnlikeButton liked={liked} onClick={handleLikeToggle}>
-					{liked ? <Title>Like</Title> : <Title>Like</Title>}
+					{liked ? (
+						<TitleButton>{locale.buttonLikePhoto}</TitleButton>
+					) : (
+						<TitleButton>{locale.buttonLikePhoto}</TitleButton>
+					)}
 				</UnlikeButton>
 				<RemoveButton onClick={handleRemove}>
-					<Title>Remove</Title>
+					<TitleButton>{locale.buttonRemovePhoto}</TitleButton>
 				</RemoveButton>
 			</ButtonContainer>
 		</Wrapper>

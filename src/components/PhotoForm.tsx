@@ -3,6 +3,8 @@ import { useForm, Controller } from 'react-hook-form'
 import { Photo } from '../types/photo'
 import styled from 'styled-components'
 import AddPlusIcon from '../assets/images/add-plus.svg'
+import { englishLocale, russianLocale } from '../theme/locales'
+import { useTypedSelector } from '../hooks/useTypedSelector'
 
 interface PhotoFormProps {
 	onSubmit: (data: Photo) => void
@@ -23,18 +25,23 @@ const Input = styled.input`
 	flex: 1;
 	padding: 8px;
 	margin-right: 10px;
-	border: 1px solid #ccc;
 	border-radius: 4px;
 	font-size: 16px;
 	height: 100%;
+	border: ${props => props.theme.border};
+	background-color: ${props => props.theme.body};
+	color: ${props => props.theme.text};
+	transition: 0.3s ease;
 `
 const DescriptionInput = styled.textarea`
-	height: 80px;
 	padding: 8px;
-	border: 1px solid #ccc;
 	border-radius: 4px;
 	font-size: 16px;
 	font-family: Arial, sans-serif;
+	border: ${props => props.theme.border};
+	background-color: ${props => props.theme.body};
+	color: ${props => props.theme.text};
+	transition: 0.3s ease;
 `
 
 const Button = styled.button`
@@ -64,6 +71,8 @@ const AddIcon = styled.img`
 `
 
 const PhotoForm: React.FC<PhotoFormProps> = ({ onSubmit }) => {
+	const { language } = useTypedSelector(state => state.settings)
+	const locale = language === 'en' ? englishLocale : russianLocale
 	const { handleSubmit, control } = useForm<Photo>()
 
 	const handleFormSubmit = (data: Photo) => {
@@ -78,7 +87,11 @@ const PhotoForm: React.FC<PhotoFormProps> = ({ onSubmit }) => {
 					control={control}
 					rules={{ required: 'Title is required' }}
 					render={({ field }) => (
-						<Input {...field} type='text' placeholder='Title' />
+						<Input
+							{...field}
+							type='text'
+							placeholder={locale.namePhotoPlaceholder}
+						/>
 					)}
 				/>
 				<Controller
@@ -86,12 +99,16 @@ const PhotoForm: React.FC<PhotoFormProps> = ({ onSubmit }) => {
 					control={control}
 					rules={{ required: 'Image URL is required' }}
 					render={({ field }) => (
-						<Input {...field} type='text' placeholder='Image URL' />
+						<Input
+							{...field}
+							type='text'
+							placeholder={locale.urlPhotoPlaceholder}
+						/>
 					)}
 				/>
 				<Button type='submit'>
 					<AddIcon src={AddPlusIcon} />
-					<Title>Add Photo</Title>
+					<Title>{locale.buttonAddPhoto}</Title>
 				</Button>
 			</InputContainer>
 			<InputContainer>
@@ -99,7 +116,10 @@ const PhotoForm: React.FC<PhotoFormProps> = ({ onSubmit }) => {
 					name='description'
 					control={control}
 					render={({ field }) => (
-						<DescriptionInput {...field} placeholder='Description' />
+						<DescriptionInput
+							{...field}
+							placeholder={locale.descriptionPhotoPlaceholder}
+						/>
 					)}
 				/>
 			</InputContainer>

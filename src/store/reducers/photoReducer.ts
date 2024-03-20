@@ -1,5 +1,3 @@
-// photoReducer.ts
-
 import { PhotoAction, PhotoActionType, PhotoState } from '../../types/photo'
 
 const initialState: PhotoState = {

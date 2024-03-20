@@ -1,0 +1,31 @@
+export const englishLocale = {
+	headerTitle: 'Gallery',
+	searchPlaceholder: 'Search by title...',
+	namePhotoPlaceholder: 'Title',
+	urlPhotoPlaceholder: 'URL Photo',
+	descriptionPhotoPlaceholder: 'Description',
+	homeTitle: 'Photo List',
+	fovoritesTitle: 'Favorites List',
+	detailTitle: 'Detail Photo',
+	mainNavHome: 'Home',
+	mainNavFavorites: 'Favorites',
+	buttonAddPhoto: 'Add',
+	buttonLikePhoto: 'Like',
+	buttonRemovePhoto: 'Remove',
+}
+
+export const russianLocale = {
+	headerTitle: 'Галерея',
+	searchPlaceholder: 'Поиск по названию...',
+	namePhotoPlaceholder: 'Название',
+	urlPhotoPlaceholder: 'URL Картинки',
+	descriptionPhotoPlaceholder: 'Описание',
+	homeTitle: 'Список изображений',
+	fovoritesTitle: 'Понравившиеся изображения',
+	detailTitle: 'Описание изображения',
+	mainNavHome: 'Главная',
+	mainNavFavorites: 'Избранное',
+	buttonAddPhoto: 'Добавить',
+	buttonLikePhoto: 'Понравилось',
+	buttonRemovePhoto: 'Удалить',
+}

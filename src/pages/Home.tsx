@@ -4,8 +4,17 @@ import PhotoList from '../components/PhotoList'
 import PhotoForm from '../components/PhotoForm'
 import { useActions } from '../hooks/useAction'
 import { Photo } from '../types/photo'
+import styled from 'styled-components'
+import { useTypedSelector } from '../hooks/useTypedSelector'
+import { englishLocale, russianLocale } from '../theme/locales'
+
+const Title = styled.h1`
+	color: ${props => props.theme.text};
+`
 
 const Home: React.FC = () => {
+	const { language } = useTypedSelector(state => state.settings)
+	const locale = language === 'en' ? englishLocale : russianLocale
 	const { addPhoto } = useActions()
 
 	const handleAddPhoto = (photo: Photo) => {
@@ -14,7 +23,7 @@ const Home: React.FC = () => {
 
 	return (
 		<Layout>
-			<h1>Photo List</h1>
+			<Title>{locale.homeTitle}</Title>
 			<PhotoForm onSubmit={handleAddPhoto} />
 			<PhotoList />
 		</Layout>

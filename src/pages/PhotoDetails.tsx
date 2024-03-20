@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 import { usePhoto } from '../hooks/usePhoto'
 import Layout from '../components/Layout'
+import { useTypedSelector } from '../hooks/useTypedSelector'
+import { englishLocale, russianLocale } from '../theme/locales'
 
 const Container = styled.div`
 	display: flex;
@@ -21,37 +23,43 @@ const DetailsContainer = styled.div`
 	flex: 1;
 `
 
-const Title = styled.h2`
+const TitlePhoto = styled.h2`
 	margin-bottom: 10px;
 	font-size: 24px;
-	color: #333;
+	color: ${props => props.theme.text};
 `
 
 const Description = styled.p`
 	margin-top: 0;
 	font-size: 16px;
-	color: #666;
+	color: ${props => props.theme.text};
+`
+const Title = styled.h1`
+	color: ${props => props.theme.text};
 `
 
 const PhotoDetails: React.FC = () => {
+	const { language } = useTypedSelector(state => state.settings)
+	const locale = language === 'en' ? englishLocale : russianLocale
+
 	const { id } = useParams<{ id: string }>()
 	const photo = usePhoto(parseInt(id!))
 
 	if (!photo) {
 		return (
 			<Layout>
-				<div>Loading...</div>
+				<div>Загрузка...</div>
 			</Layout>
 		)
 	}
 
 	return (
 		<Layout>
-			<h1>Photo Details</h1>
+			<Title>{locale.detailTitle}</Title>
 			<Container>
 				<Image src={photo.imageUrl} alt={photo.title} />
 				<DetailsContainer>
-					<Title>{photo.title}</Title>
+					<TitlePhoto>{photo.title}</TitlePhoto>
 					<Description>{photo.description}</Description>
 				</DetailsContainer>
 			</Container>
