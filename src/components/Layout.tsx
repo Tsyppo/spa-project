@@ -2,6 +2,7 @@ import React, { ReactNode, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 import SiteIcon from '../assets/images/Panda.svg'
+import BackgroundPng from '../assets/images/background.png'
 import { useActions } from '../hooks/useAction'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 import { lightTheme, darkTheme } from '../theme/theme'
@@ -12,6 +13,21 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     font-family: cursive, sans-serif;
     background-color: ${props => props.theme.body};
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(${BackgroundPng});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 180px 90px;
+    z-index: -1;
+	opacity: 0.3;
   }
 `
 
@@ -89,6 +105,7 @@ const SearchInput = styled.input`
 const ThemeButton = styled.button`
 	background-color: ${props => props.theme.buttonBackground};
 	color: ${props => props.theme.buttonColor};
+	transition: background-color 0.3s ease;
 	border: none;
 	cursor: pointer;
 	right: 170px;
@@ -98,6 +115,7 @@ const ThemeButton = styled.button`
 const LanguageButton = styled.button`
 	background-color: ${props => props.theme.buttonBackground};
 	color: ${props => props.theme.buttonColor};
+	transition: background-color 0.3s ease;
 	border: none;
 	position: fixed;
 	right: 100px;

@@ -12,8 +12,8 @@ const Container = styled.div`
 `
 
 const Image = styled.img`
-	width: auto;
-	height: auto;
+	max-width: 800px;
+	max-height: 800px;
 	margin-right: 20px;
 	border-radius: 8px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

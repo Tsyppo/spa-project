@@ -16,7 +16,7 @@ const PhotoItemWrapper = styled.div`
 `
 
 interface PhotoListProps {
-	isFavoritePage?: boolean // Флаг, указывающий на то, является ли страница Favorite
+	isFavoritePage?: boolean
 }
 
 const PhotoList: React.FC<PhotoListProps> = ({ isFavoritePage = false }) => {
