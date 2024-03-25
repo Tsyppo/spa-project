@@ -1,5 +1,5 @@
 export interface Photo {
-	id: number
+	id: string
 	title: string
 	description: string
 	imageUrl: string
@@ -16,6 +16,7 @@ export enum PhotoActionType {
 	REMOVE_PHOTO = 'REMOVE_PHOTO',
 	TOGGLE_LIKE = 'TOGGLE_LIKE',
 	SET_SEARCH_TERM = 'SET_SEARCH_TERM',
+	FETCH_PHOTOS_SUCCESS = 'FETCH_PHOTOS_SUCCESS',
 }
 
 export interface AddPhotoAction {
@@ -25,19 +26,27 @@ export interface AddPhotoAction {
 
 export interface RemovePhotoAction {
 	type: PhotoActionType.REMOVE_PHOTO
-	payload: number
+	payload: string
 }
 
 export interface ToggleLikeAction {
 	type: PhotoActionType.TOGGLE_LIKE
-	payload: number
+	payload: string
 }
+
 export interface SetSearchTermAction {
 	type: PhotoActionType.SET_SEARCH_TERM
 	payload: string
 }
+
+export interface FetchPhotosSuccessAction {
+	type: PhotoActionType.FETCH_PHOTOS_SUCCESS
+	payload: Photo[]
+}
+
 export type PhotoAction =
 	| AddPhotoAction
 	| RemovePhotoAction
 	| ToggleLikeAction
 	| SetSearchTermAction
+	| FetchPhotosSuccessAction

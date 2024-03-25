@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import PhotoItem from './PhotoItem'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 import { Photo } from '../types/photo'
+import { useActions } from '../hooks/useAction'
 
 const PhotoListContainer = styled.div`
 	display: flex;
@@ -25,10 +26,19 @@ const PhotoList: React.FC<PhotoListProps> = ({ isFavoritePage = false }) => {
 		searchTerm: state.photos.searchTerm,
 	}))
 
-	let filteredPhotos: Photo[] = photos
+	const { fetchPhotos } = useActions()
+
+	useEffect(() => {
+		fetchPhotos()
+	}, [fetchPhotos])
+
+	let filteredPhotos: Photo[] = photos || []
 
 	if (isFavoritePage) {
 		filteredPhotos = filteredPhotos.filter(photo => photo.liked)
+	}
+	if (!photos) {
+		return <div>Loading...</div>
 	}
 
 	filteredPhotos = filteredPhotos.filter(photo =>

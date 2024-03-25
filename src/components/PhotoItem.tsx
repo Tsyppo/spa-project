@@ -92,7 +92,7 @@ const PhotoItem: React.FC<Props> = ({ photo }) => {
 	const [liked, setLiked] = useState(photo.liked)
 
 	const handleLikeToggle = () => {
-		toggleLike(photo.id)
+		toggleLike(photo.id, liked)
 		setLiked(!liked)
 	}
 

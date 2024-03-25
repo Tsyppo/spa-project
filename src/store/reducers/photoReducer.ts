@@ -34,6 +34,11 @@ const photoReducer = (
 				...state,
 				searchTerm: action.payload,
 			}
+		case PhotoActionType.FETCH_PHOTOS_SUCCESS:
+			return {
+				...state,
+				photos: action.payload,
+			}
 		default:
 			return state
 	}

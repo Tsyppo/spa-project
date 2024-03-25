@@ -43,7 +43,8 @@ const PhotoDetails: React.FC = () => {
 	const locale = language === 'en' ? englishLocale : russianLocale
 
 	const { id } = useParams<{ id: string }>()
-	const photo = usePhoto(parseInt(id!))
+	console.log(id)
+	const photo = usePhoto(id!)
 
 	if (!photo) {
 		return (
