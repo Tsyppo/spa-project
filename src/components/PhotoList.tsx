@@ -14,8 +14,23 @@ const PhotoListContainer = styled.div`
 const PhotoItemWrapper = styled.div`
 	width: calc(25% - 10px);
 	margin-bottom: 10px;
-`
+	padding-right: 0px;
 
+	@media (max-width: 1280px) {
+		width: calc(33.33% - 10px);
+	}
+
+	@media (max-width: 960px) {
+		width: calc(50% - 10px);
+	}
+
+	@media (max-width: 680px) {
+		width: calc(100% - 10px);
+	}
+	@media (max-width: 340px) {
+		margin-right: 0;
+	}
+`
 interface PhotoListProps {
 	isFavoritePage?: boolean
 }

@@ -7,14 +7,16 @@ import { useTypedSelector } from '../hooks/useTypedSelector'
 import { englishLocale, russianLocale } from '../theme/locales'
 
 const Wrapper = styled.div`
-	width: 300px;
-	height: 400px;
+	width: calc(100% - 20px);
+	max-width: 350px;
+	height: 450px;
 	border-radius: 8px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	margin-bottom: 20px;
 	transition: 0.3s ease;
 	background-color: rgba(0, 0, 0, 0.5);
 	padding-bottom: 10px;
+	display: inline-block;
 `
 
 const Image = styled.img`
@@ -31,27 +33,32 @@ const TitleButton = styled.h3`
 `
 
 const Title = styled(TitleButton)`
-	color: white;
+	color: ${props => props.theme.text};
 	margin-bottom: 10px;
 	margin-left: 10px;
 `
 
 const ButtonContainer = styled.div`
 	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
 `
 
 const Button = styled.button`
 	align-items: center;
-	padding: 0 20px;
-	margin: 0;
-	margin-left: 10px;
+	padding: 0 10px;
+	margin: 5px;
 	color: black;
-	height: 30px;
+	height: 35px;
 	border: none;
 	border-radius: 3px;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
 	background-color: #858585;
+	max-width: 45%;
+	overflow: hidden;
+	word-wrap: break-word;
+	white-space: normal;
 	&:hover {
 		background-color: #707070;
 	}
@@ -67,6 +74,7 @@ const UnlikeButton = styled(Button)<{ liked: boolean }>`
 
 const RemoveButton = styled(Button)`
 	margin-left: 10px;
+	margin-right: auto;
 `
 const StyledLink = styled(Link)`
 	text-decoration: none;

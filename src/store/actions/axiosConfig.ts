@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+//json-server --watch src/db.json --port 3001
 const instance = axios.create({
 	baseURL: 'http://localhost:3001',
 })

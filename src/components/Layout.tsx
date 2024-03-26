@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 import SiteIcon from '../assets/images/Panda.svg'
@@ -7,6 +7,7 @@ import { useActions } from '../hooks/useAction'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 import { lightTheme, darkTheme } from '../theme/theme'
 import { englishLocale, russianLocale } from '../theme/locales'
+import { MdMenu } from 'react-icons/md'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -27,7 +28,10 @@ const GlobalStyle = createGlobalStyle`
     background-repeat: no-repeat;
     background-position: 180px 90px;
     z-index: -1;
-	opacity: 0.3;
+    opacity: 0.3;
+    @media screen and (max-width: 540px) {
+        background-position: 0;
+    }
   }
 `
 
@@ -40,26 +44,47 @@ const Header = styled.header`
 	align-items: center;
 	position: fixed;
 	top: 0;
-	left: 0;
 	width: 100%;
+	z-index: 1000;
+	@media screen and (max-width: 1920px) {
+		padding: 15px;
+	}
 `
-
+const MenuButton = styled.button`
+	display: none;
+	background: none;
+	border: none;
+	color: ${props => props.theme.headerText};
+	font-size: 24px;
+	margin-right: 15px;
+	cursor: pointer;
+	@media screen and (max-width: 540px) {
+		display: block;
+	}
+`
 const IconPanda = styled.img`
 	width: 40px;
 	margin-right: 10px;
 `
-
 const Title = styled.h1`
 	margin: 0;
+	@media screen and (max-width: 1920px) {
+		font-size: 24px;
+	}
 `
 
 const Sidebar = styled.nav`
-	width: 10%;
+	width: 180px;
 	background-color: ${props => props.theme.headerBackground};
 	transition: background-color 0.3s ease;
 	position: fixed;
-	top: 84px;
+	top: 0;
 	bottom: 0;
+	margin-top: 70px;
+	z-index: 100;
+	@media screen and (max-width: 340px) {
+		display: none;
+	}
 `
 
 const Navigation = styled.nav`
@@ -83,23 +108,37 @@ const NavLink = styled(Link)`
 
 const Content = styled.main`
 	margin-top: 80px;
-	margin-left: 250px;
+	margin-left: 200px;
 	padding: 20px;
+	@media screen and (max-width: 540px) {
+		margin-left: 0px;
+	}
 `
 
 const SearchInput = styled.input`
-	flex: 0 0 auto;
+	flex: 1;
 	padding: 8px;
-	margin-right: 10px;
-	margin-left: 600px;
 	border-radius: 4px;
 	font-size: 16px;
-	width: 700px;
-	position: fixed;
 	border: ${props => props.theme.border};
 	background-color: ${props => props.theme.body};
 	color: ${props => props.theme.text};
 	transition: 0.3s ease;
+	margin: auto;
+	max-width: 700px;
+	width: 60%;
+	@media screen and (max-width: 1100px) {
+		width: 95%;
+		margin-left: 20px;
+	}
+	@media screen and (max-width: 768px) {
+		width: 90%;
+		margin-left: 20px;
+	}
+	@media screen and (max-width: 340px) {
+		width: 95%;
+		margin-left: 20px;
+	}
 `
 
 const ThemeButton = styled.button`
@@ -108,8 +147,10 @@ const ThemeButton = styled.button`
 	transition: background-color 0.3s ease;
 	border: none;
 	cursor: pointer;
-	right: 170px;
-	position: fixed;
+
+	@media screen and (max-width: 340px) {
+		margin-top: 10px;
+	}
 `
 
 const LanguageButton = styled.button`
@@ -117,11 +158,14 @@ const LanguageButton = styled.button`
 	color: ${props => props.theme.buttonColor};
 	transition: background-color 0.3s ease;
 	border: none;
-	position: fixed;
-	right: 100px;
 	cursor: pointer;
+	margin-left: 10px;
+	margin-right: 30px;
+	@media screen and (max-width: 340px) {
+		margin-top: 10px;
+		margin-right: 0;
+	}
 `
-
 interface LayoutProps {
 	children: ReactNode
 }
@@ -131,6 +175,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 	const { theme, language } = useTypedSelector(state => state.settings)
 
 	const [searchTerm, setSearchTermLocal] = useState('')
+	const [showSidebar, setShowSidebar] = useState(window.innerWidth > 540)
 
 	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target
@@ -148,6 +193,22 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 		changeLanguage(newLanguage)
 	}
 	const locale = language === 'en' ? englishLocale : russianLocale
+	const toggleSidebar = () => {
+		setShowSidebar(!showSidebar)
+	}
+
+	useEffect(() => {
+		const handleResize = () => {
+			setShowSidebar(window.innerWidth > 540)
+		}
+
+		window.addEventListener('resize', handleResize)
+
+		return () => {
+			window.removeEventListener('resize', handleResize)
+		}
+	}, [])
+
 	return (
 		<ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
 			<>
@@ -167,8 +228,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 					<LanguageButton onClick={toggleLanguage}>
 						{language === 'en' ? 'Русский' : 'English'}
 					</LanguageButton>
+					<MenuButton onClick={toggleSidebar}>
+						<MdMenu />
+					</MenuButton>
 				</Header>
-				<Sidebar>
+				<Sidebar style={{ display: showSidebar ? 'block' : 'none' }}>
 					<Navigation>
 						<NavLink to='/photos'>{locale.mainNavHome}</NavLink>
 						<NavLink to='/favorites'>{locale.mainNavFavorites}</NavLink>

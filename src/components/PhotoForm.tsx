@@ -6,10 +6,6 @@ import AddPlusIcon from '../assets/images/add-plus.svg'
 import { englishLocale, russianLocale } from '../theme/locales'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 
-interface PhotoFormProps {
-	onSubmit: (data: Photo) => void
-}
-
 const Form = styled.form`
 	display: flex;
 	flex-direction: column;
@@ -19,6 +15,9 @@ const InputContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	margin-bottom: 10px;
+	@media screen and (max-width: 850px) {
+		flex-wrap: wrap;
+	}
 `
 
 const Input = styled.input`
@@ -32,6 +31,12 @@ const Input = styled.input`
 	background-color: ${props => props.theme.body};
 	color: ${props => props.theme.text};
 	transition: 0.3s ease;
+
+	@media screen and (max-width: 850px) {
+		flex: 0 100%;
+		margin-right: 0;
+		margin-top: 10px;
+	}
 `
 const DescriptionInput = styled.textarea`
 	padding: 8px;
@@ -59,6 +64,13 @@ const Button = styled.button`
 	&:hover {
 		background-color: #707070;
 	}
+	@media screen and (max-width: 850px) {
+		flex: 0 100%;
+		margin-right: 0;
+		margin-top: 10px;
+		max-width: 110px;
+		height: 35px;
+	}
 `
 
 const Title = styled.h3`
@@ -69,6 +81,9 @@ const AddIcon = styled.img`
 	height: auto;
 	margin-right: 10px;
 `
+interface PhotoFormProps {
+	onSubmit: (data: Photo) => void
+}
 
 const PhotoForm: React.FC<PhotoFormProps> = ({ onSubmit }) => {
 	const { language } = useTypedSelector(state => state.settings)
