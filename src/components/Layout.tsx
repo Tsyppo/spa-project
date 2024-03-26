@@ -30,7 +30,7 @@ const GlobalStyle = createGlobalStyle`
     z-index: -1;
     opacity: 0.3;
     @media screen and (max-width: 540px) {
-        background-position: 0;
+        background-position: 0 90px;
     }
   }
 `
@@ -49,6 +49,9 @@ const Header = styled.header`
 	@media screen and (max-width: 1920px) {
 		padding: 15px;
 	}
+	@media screen and (max-width: 540px) {
+		flex-wrap: wrap;
+	}
 `
 const MenuButton = styled.button`
 	display: none;
@@ -59,6 +62,7 @@ const MenuButton = styled.button`
 	margin-right: 15px;
 	cursor: pointer;
 	@media screen and (max-width: 540px) {
+		margin-top: 15px;
 		display: block;
 	}
 `
@@ -82,8 +86,13 @@ const Sidebar = styled.nav`
 	bottom: 0;
 	margin-top: 70px;
 	z-index: 100;
+	@media screen and (max-width: 540px) {
+		display: none;
+		margin-top: 140px;
+	}
 	@media screen and (max-width: 340px) {
 		display: none;
+		margin-top: 160px;
 	}
 `
 
@@ -107,11 +116,12 @@ const NavLink = styled(Link)`
 `
 
 const Content = styled.main`
-	margin-top: 80px;
+	margin-top: 60px;
 	margin-left: 200px;
 	padding: 20px;
 	@media screen and (max-width: 540px) {
 		margin-left: 0px;
+		margin-top: 150px;
 	}
 `
 
@@ -135,9 +145,12 @@ const SearchInput = styled.input`
 		width: 90%;
 		margin-left: 20px;
 	}
-	@media screen and (max-width: 340px) {
+	@media screen and (max-width: 540px) {
 		width: 95%;
 		margin-left: 20px;
+		flex: 0 80%;
+		margin-right: 10px;
+		margin-top: 10px;
 	}
 `
 
@@ -148,8 +161,9 @@ const ThemeButton = styled.button`
 	border: none;
 	cursor: pointer;
 
-	@media screen and (max-width: 340px) {
+	@media screen and (max-width: 540px) {
 		margin-top: 10px;
+		margin-left: auto;
 	}
 `
 
@@ -161,9 +175,9 @@ const LanguageButton = styled.button`
 	cursor: pointer;
 	margin-left: 10px;
 	margin-right: 30px;
-	@media screen and (max-width: 340px) {
+	@media screen and (max-width: 540px) {
 		margin-top: 10px;
-		margin-right: 0;
+		margin-left: auto;
 	}
 `
 interface LayoutProps {
@@ -222,15 +236,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 						value={searchTerm}
 						onChange={handleSearchChange}
 					/>
+					<MenuButton onClick={toggleSidebar}>
+						<MdMenu />
+					</MenuButton>
 					<ThemeButton onClick={toggleTheme}>
 						{theme === 'light' ? 'Dark' : 'Light'} Theme
 					</ThemeButton>
 					<LanguageButton onClick={toggleLanguage}>
 						{language === 'en' ? 'Русский' : 'English'}
 					</LanguageButton>
-					<MenuButton onClick={toggleSidebar}>
-						<MdMenu />
-					</MenuButton>
 				</Header>
 				<Sidebar style={{ display: showSidebar ? 'block' : 'none' }}>
 					<Navigation>

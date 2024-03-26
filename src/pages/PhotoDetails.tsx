@@ -9,6 +9,9 @@ import { englishLocale, russianLocale } from '../theme/locales'
 const Container = styled.div`
 	display: flex;
 	align-items: flex-start;
+	@media screen and (max-width: 1100px) {
+		flex-wrap: wrap;
+	}
 `
 
 const Image = styled.img`
@@ -17,6 +20,26 @@ const Image = styled.img`
 	margin-right: 20px;
 	border-radius: 8px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	@media screen and (max-width: 1030px) {
+		max-width: 600px;
+		max-height: 600px;
+	}
+	@media screen and (max-width: 830px) {
+		max-width: 500px;
+		max-height: 500px;
+	}
+	@media screen and (max-width: 730px) {
+		max-width: 400px;
+		max-height: 400px;
+	}
+	@media screen and (max-width: 630px) {
+		max-width: 300px;
+		max-height: 300px;
+	}
+	@media screen and (max-width: 340px) {
+		max-width: 300px;
+		max-height: 300px;
+	}
 `
 
 const DetailsContainer = styled.div`

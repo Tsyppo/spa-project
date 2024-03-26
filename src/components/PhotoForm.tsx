@@ -68,8 +68,9 @@ const Button = styled.button`
 		flex: 0 100%;
 		margin-right: 0;
 		margin-top: 10px;
-		max-width: 110px;
+		max-width: 150px;
 		height: 35px;
+		padding-right: 10px;
 	}
 `
 
