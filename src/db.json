@@ -1,6 +1,13 @@
 {
   "photos": [
     {
+      "id": "1",
+      "title": "Beautiful Sunset",
+      "description": "A stunning view of the sunset over the ocean.",
+      "imageUrl": "https://gas-kvas.com/uploads/posts/2023-02/1675468564_gas-kvas-com-p-zakat-fonovii-risunok-32.jpg",
+      "liked": false
+    },
+    {
       "id": "2",
       "title": "Snowy Mountains",
       "description": "Snow-covered peaks of the mountains in winter.",

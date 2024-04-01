@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { Photo } from '../types/photo'
 import styled from 'styled-components'
@@ -86,14 +86,17 @@ interface PhotoFormProps {
 	onSubmit: (data: Photo) => void
 }
 
-const PhotoForm: React.FC<PhotoFormProps> = ({ onSubmit }) => {
+const PhotoForm: React.FC<PhotoFormProps> = React.memo(({ onSubmit }) => {
 	const { language } = useTypedSelector(state => state.settings)
 	const locale = language === 'en' ? englishLocale : russianLocale
 	const { handleSubmit, control } = useForm<Photo>()
 
-	const handleFormSubmit = (data: Photo) => {
-		onSubmit(data)
-	}
+	const handleFormSubmit = useCallback(
+		(data: Photo) => {
+			onSubmit(data)
+		},
+		[onSubmit]
+	)
 
 	return (
 		<Form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -141,6 +144,6 @@ const PhotoForm: React.FC<PhotoFormProps> = ({ onSubmit }) => {
 			</InputContainer>
 		</Form>
 	)
-}
+})
 
 export default PhotoForm

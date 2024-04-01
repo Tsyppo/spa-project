@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
 import { Photo } from '../types/photo'
 import { useActions } from '../hooks/useAction'
 import { Link } from 'react-router-dom'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 import { englishLocale, russianLocale } from '../theme/locales'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 const Wrapper = styled.div`
 	width: calc(100% - 20px);
@@ -19,7 +20,7 @@ const Wrapper = styled.div`
 	display: inline-block;
 `
 
-const Image = styled.img`
+const Image = styled(LazyLoadImage)`
 	width: 100%;
 	height: 80%;
 	margin-bottom: 10px;
@@ -92,21 +93,21 @@ interface Props {
 	photo: Photo
 }
 
-const PhotoItem: React.FC<Props> = ({ photo }) => {
+const PhotoItem: React.FC<Props> = React.memo(({ photo }) => {
 	const { language } = useTypedSelector(state => state.settings)
 	const locale = language === 'en' ? englishLocale : russianLocale
 
 	const { toggleLike, removePhoto } = useActions()
 	const [liked, setLiked] = useState(photo.liked)
 
-	const handleLikeToggle = () => {
+	const handleLikeToggle = useCallback(() => {
 		toggleLike(photo.id, liked)
 		setLiked(!liked)
-	}
+	}, [photo.id, liked, toggleLike])
 
-	const handleRemove = () => {
+	const handleRemove = useCallback(() => {
 		removePhoto(photo.id)
-	}
+	}, [photo.id, removePhoto])
 
 	return (
 		<Wrapper>
@@ -128,6 +129,6 @@ const PhotoItem: React.FC<Props> = ({ photo }) => {
 			</ButtonContainer>
 		</Wrapper>
 	)
-}
+})
 
-export default React.memo(PhotoItem)
+export default PhotoItem

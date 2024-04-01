@@ -5,6 +5,7 @@ import { usePhoto } from '../hooks/usePhoto'
 import Layout from '../components/Layout'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 import { englishLocale, russianLocale } from '../theme/locales'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 const Container = styled.div`
 	display: flex;
@@ -14,7 +15,7 @@ const Container = styled.div`
 	}
 `
 
-const Image = styled.img`
+const Image = styled(LazyLoadImage)`
 	max-width: 800px;
 	max-height: 800px;
 	margin-right: 20px;

@@ -9,6 +9,7 @@ export interface Photo {
 export interface PhotoState {
 	photos: Photo[]
 	searchTerm: string
+	photosLoaded: boolean
 }
 
 export enum PhotoActionType {

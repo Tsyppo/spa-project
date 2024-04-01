@@ -1,4 +1,10 @@
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, {
+	ReactNode,
+	useCallback,
+	useEffect,
+	useMemo,
+	useState,
+} from 'react'
 import { Link } from 'react-router-dom'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 import SiteIcon from '../assets/images/Panda.svg'
@@ -7,6 +13,7 @@ import { useActions } from '../hooks/useAction'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 import { lightTheme, darkTheme } from '../theme/theme'
 import { englishLocale, russianLocale } from '../theme/locales'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { MdMenu } from 'react-icons/md'
 
 const GlobalStyle = createGlobalStyle`
@@ -59,21 +66,21 @@ const MenuButton = styled.button`
 	border: none;
 	color: ${props => props.theme.headerText};
 	font-size: 24px;
-	margin-right: 15px;
+	margin-right: 30px;
 	cursor: pointer;
 	@media screen and (max-width: 540px) {
 		margin-top: 15px;
 		display: block;
 	}
 `
-const IconPanda = styled.img`
-	width: 40px;
+const IconPanda = styled(LazyLoadImage)`
+	width: 50px;
 	margin-right: 10px;
 `
 const Title = styled.h1`
 	margin: 0;
 	@media screen and (max-width: 1920px) {
-		font-size: 24px;
+		font-size: 36px;
 	}
 `
 
@@ -88,11 +95,7 @@ const Sidebar = styled.nav`
 	z-index: 100;
 	@media screen and (max-width: 540px) {
 		display: none;
-		margin-top: 140px;
-	}
-	@media screen and (max-width: 340px) {
-		display: none;
-		margin-top: 160px;
+		margin-top: 190px;
 	}
 `
 
@@ -137,7 +140,7 @@ const SearchInput = styled.input`
 	margin: auto;
 	max-width: 700px;
 	width: 60%;
-	@media screen and (max-width: 1100px) {
+	@media screen and (max-width: 1150px) {
 		width: 95%;
 		margin-left: 20px;
 	}
@@ -184,32 +187,40 @@ interface LayoutProps {
 	children: ReactNode
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<LayoutProps> = React.memo(({ children }) => {
 	const { setSearchTerm, changeTheme, changeLanguage } = useActions()
 	const { theme, language } = useTypedSelector(state => state.settings)
 
 	const [searchTerm, setSearchTermLocal] = useState('')
 	const [showSidebar, setShowSidebar] = useState(window.innerWidth > 540)
 
-	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const { value } = event.target
-		setSearchTerm(value)
-		setSearchTermLocal(value)
-	}
+	const handleSearchChange = useCallback(
+		(event: React.ChangeEvent<HTMLInputElement>) => {
+			const { value } = event.target
+			setSearchTerm(value)
+			setSearchTermLocal(value)
+		},
+		[setSearchTerm]
+	)
 
-	const toggleTheme = () => {
+	const toggleTheme = useCallback(() => {
 		const newTheme = theme === 'light' ? 'dark' : 'light'
 		changeTheme(newTheme)
-	}
+	}, [theme, changeTheme])
 
-	const toggleLanguage = () => {
+	const toggleLanguage = useCallback(() => {
 		const newLanguage = language === 'en' ? 'ru' : 'en'
 		changeLanguage(newLanguage)
-	}
-	const locale = language === 'en' ? englishLocale : russianLocale
-	const toggleSidebar = () => {
-		setShowSidebar(!showSidebar)
-	}
+	}, [language, changeLanguage])
+
+	const locale = useMemo(
+		() => (language === 'en' ? englishLocale : russianLocale),
+		[language]
+	)
+
+	const toggleSidebar = useCallback(() => {
+		setShowSidebar(prevState => !prevState)
+	}, [])
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -228,7 +239,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 			<>
 				<GlobalStyle />
 				<Header>
-					<IconPanda src={SiteIcon} />
+					<IconPanda src={SiteIcon} alt='Panda Icon' effect='blur'></IconPanda>
 					<Title>{locale.headerTitle}</Title>
 					<SearchInput
 						type='text'
@@ -256,6 +267,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 			</>
 		</ThemeProvider>
 	)
-}
+})
 
 export default Layout

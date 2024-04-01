@@ -3,6 +3,7 @@ import { PhotoAction, PhotoActionType, PhotoState } from '../../types/photo'
 const initialState: PhotoState = {
 	photos: [],
 	searchTerm: '',
+	photosLoaded: false,
 }
 
 const photoReducer = (
@@ -35,9 +36,15 @@ const photoReducer = (
 				searchTerm: action.payload,
 			}
 		case PhotoActionType.FETCH_PHOTOS_SUCCESS:
-			return {
-				...state,
-				photos: action.payload,
+			if (!state.photosLoaded) {
+				console.log('Photos loaded successfully:', action.payload)
+				return {
+					...state,
+					photos: action.payload,
+					photosLoaded: true,
+				}
+			} else {
+				return state
 			}
 		default:
 			return state
