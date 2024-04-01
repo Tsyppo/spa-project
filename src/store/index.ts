@@ -6,6 +6,6 @@ import loggerMiddleware from './loggerMiddleware'
 const middleware: Middleware[] = [thunk, loggerMiddleware]
 
 export const store = createStore(
-	rootReducer as unknown as Reducer<RootState>,
-	applyMiddleware(...middleware)
+    rootReducer as unknown as Reducer<RootState>,
+    applyMiddleware(...middleware),
 )

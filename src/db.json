@@ -1,128 +1,128 @@
 {
-  "photos": [
-    {
-      "id": "1",
-      "title": "Beautiful Sunset",
-      "description": "A stunning view of the sunset over the ocean.",
-      "imageUrl": "https://gas-kvas.com/uploads/posts/2023-02/1675468564_gas-kvas-com-p-zakat-fonovii-risunok-32.jpg",
-      "liked": false
-    },
-    {
-      "id": "2",
-      "title": "Snowy Mountains",
-      "description": "Snow-covered peaks of the mountains in winter.",
-      "imageUrl": "https://i.pinimg.com/originals/f4/fe/ce/f4fece4d5d111083e1c65ffbead7a92c.jpg",
-      "liked": true
-    },
-    {
-      "id": "3",
-      "title": "City Lights",
-      "description": "Night view of the city skyline with illuminated buildings.",
-      "imageUrl": "https://i.pinimg.com/originals/ba/4c/71/ba4c71f59ae33aba1d57a9cd70778a8f.jpg",
-      "liked": true
-    },
-    {
-      "id": "4",
-      "title": "Autumn Leaves",
-      "description": "Colorful autumn leaves in the forest.",
-      "imageUrl": "https://i.pinimg.com/originals/37/85/6c/37856ccdef2a66f36b53a5390fcc2c18.jpg",
-      "liked": true
-    },
-    {
-      "id": "5",
-      "title": "Spring Flowers",
-      "description": "Bright blooming flowers in a spring garden.",
-      "imageUrl": "https://wallbox.ru/resize/1280x800/wallpapers/main2/201727/1499224620595c5a2c8e0994.56076108.jpg",
-      "liked": false
-    },
-    {
-      "id": "6",
-      "title": "Mountain Lake",
-      "description": "Serene lake surrounded by mountains.",
-      "imageUrl": "https://w.forfun.com/fetch/b7/b7e10a95be610f96a6a2ce6fef8d4bfd.jpeg",
-      "liked": true
-    },
-    {
-      "id": "7",
-      "title": "Tropical Beach",
-      "description": "Palm trees and white sand beach on a tropical island.",
-      "imageUrl": "https://w.forfun.com/fetch/d3/d39dc718f08ccc5a55b9aa576dce4e26.jpeg",
-      "liked": true
-    },
-    {
-      "id": "8",
-      "title": "Ancient Ruins",
-      "description": "Ruins of an ancient civilization in the jungle.",
-      "imageUrl": "https://windows10spotlight.com/wp-content/uploads/2017/08/2c3f25949d5b1aa64a8751a78cdb5b3c.jpg",
-      "liked": true
-    },
-    {
-      "id": "9",
-      "title": "Northern Lights",
-      "description": "Aurora borealis dancing in the night sky.",
-      "imageUrl": "https://ustoa.com/blog/wp-content/uploads/2019/07/northern-lights2.jpg",
-      "liked": false
-    },
-    {
-      "id": "10",
-      "title": "Desert Dunes",
-      "description": "Endless sand dunes stretching to the horizon.",
-      "imageUrl": "https://img.goodfon.ru/original/1920x1200/b/1b/desert-death-valley-sand.jpg",
-      "liked": true
-    },
-    {
-      "id": "11",
-      "title": "Underwater World",
-      "description": "Colorful coral reefs and marine life under the sea.",
-      "imageUrl": "https://i.pinimg.com/originals/2e/36/00/2e3600cf99f38a6231d29ce33d30a95d.jpg",
-      "liked": false
-    },
-    {
-      "id": "12",
-      "title": "Country Road",
-      "description": "Scenic country road winding through fields and forests.",
-      "imageUrl": "https://w.forfun.com/fetch/2b/2be176c2831d55040ed024fcf9cec98d.jpeg",
-      "liked": true
-    },
-    {
-      "id": "13",
-      "title": "Frozen Waterfall",
-      "description": "A waterfall frozen in the winter cold.",
-      "imageUrl": "https://emosurf.com/i/0006gv00xYnz/6f41dad531c051feb7d5257ac2693866-l.jpg",
-      "liked": false
-    },
-    {
-      "id": "14",
-      "title": "Sunrise in the Mountains",
-      "description": "First light of dawn over the mountain peaks.",
-      "imageUrl": "https://w.forfun.com/fetch/e8/e85ef3901575d4201f0d6cbb12db3124.jpeg",
-      "liked": true
-    },
-    {
-      "id": "15",
-      "title": "Green Forest",
-      "description": "Lush green forest with tall trees and sunlight filtering through.",
-      "imageUrl": "https://wallpapers.com/images/hd/forest-green-7cyu78dx9238zx0w.jpg",
-      "liked": true
-    },
-    {
-      "id": "16",
-      "title": "Невероятный пейзаж",
-      "imageUrl": "https://img.goodfon.ru/original/1920x1080/8/3e/gory-zakat-vodopad-svet-sklony.jpg",
-      "description": "Посмотри на этот невероятный пейзаж",
-      "liked": false
-    }
-  ],
-  "routes": {
-    "/photos/:id": "/photos/:id"
-  },
-  "hooks": {
-    "/photos/:id": {
-      "delete": [
+    "photos": [
         {
-          "script": "let id = parseInt(request.params.id); let index = db.photos.findIndex(photo => photo.id === id); if (index !== -1) { db.photos.splice(index, 1); return {} } else { return { status: 404, body: 'Photo not found' } }"
+            "id": "1",
+            "title": "Beautiful Sunset",
+            "description": "A stunning view of the sunset over the ocean.",
+            "imageUrl": "https://gas-kvas.com/uploads/posts/2023-02/1675468564_gas-kvas-com-p-zakat-fonovii-risunok-32.jpg",
+            "liked": false
+        },
+        {
+            "id": "2",
+            "title": "Snowy Mountains",
+            "description": "Snow-covered peaks of the mountains in winter.",
+            "imageUrl": "https://i.pinimg.com/originals/f4/fe/ce/f4fece4d5d111083e1c65ffbead7a92c.jpg",
+            "liked": true
+        },
+        {
+            "id": "3",
+            "title": "City Lights",
+            "description": "Night view of the city skyline with illuminated buildings.",
+            "imageUrl": "https://i.pinimg.com/originals/ba/4c/71/ba4c71f59ae33aba1d57a9cd70778a8f.jpg",
+            "liked": true
+        },
+        {
+            "id": "4",
+            "title": "Autumn Leaves",
+            "description": "Colorful autumn leaves in the forest.",
+            "imageUrl": "https://i.pinimg.com/originals/37/85/6c/37856ccdef2a66f36b53a5390fcc2c18.jpg",
+            "liked": true
+        },
+        {
+            "id": "5",
+            "title": "Spring Flowers",
+            "description": "Bright blooming flowers in a spring garden.",
+            "imageUrl": "https://wallbox.ru/resize/1280x800/wallpapers/main2/201727/1499224620595c5a2c8e0994.56076108.jpg",
+            "liked": false
+        },
+        {
+            "id": "6",
+            "title": "Mountain Lake",
+            "description": "Serene lake surrounded by mountains.",
+            "imageUrl": "https://w.forfun.com/fetch/b7/b7e10a95be610f96a6a2ce6fef8d4bfd.jpeg",
+            "liked": true
+        },
+        {
+            "id": "7",
+            "title": "Tropical Beach",
+            "description": "Palm trees and white sand beach on a tropical island.",
+            "imageUrl": "https://w.forfun.com/fetch/d3/d39dc718f08ccc5a55b9aa576dce4e26.jpeg",
+            "liked": true
+        },
+        {
+            "id": "8",
+            "title": "Ancient Ruins",
+            "description": "Ruins of an ancient civilization in the jungle.",
+            "imageUrl": "https://windows10spotlight.com/wp-content/uploads/2017/08/2c3f25949d5b1aa64a8751a78cdb5b3c.jpg",
+            "liked": true
+        },
+        {
+            "id": "9",
+            "title": "Northern Lights",
+            "description": "Aurora borealis dancing in the night sky.",
+            "imageUrl": "https://ustoa.com/blog/wp-content/uploads/2019/07/northern-lights2.jpg",
+            "liked": false
+        },
+        {
+            "id": "10",
+            "title": "Desert Dunes",
+            "description": "Endless sand dunes stretching to the horizon.",
+            "imageUrl": "https://img.goodfon.ru/original/1920x1200/b/1b/desert-death-valley-sand.jpg",
+            "liked": true
+        },
+        {
+            "id": "11",
+            "title": "Underwater World",
+            "description": "Colorful coral reefs and marine life under the sea.",
+            "imageUrl": "https://i.pinimg.com/originals/2e/36/00/2e3600cf99f38a6231d29ce33d30a95d.jpg",
+            "liked": false
+        },
+        {
+            "id": "12",
+            "title": "Country Road",
+            "description": "Scenic country road winding through fields and forests.",
+            "imageUrl": "https://w.forfun.com/fetch/2b/2be176c2831d55040ed024fcf9cec98d.jpeg",
+            "liked": true
+        },
+        {
+            "id": "13",
+            "title": "Frozen Waterfall",
+            "description": "A waterfall frozen in the winter cold.",
+            "imageUrl": "https://emosurf.com/i/0006gv00xYnz/6f41dad531c051feb7d5257ac2693866-l.jpg",
+            "liked": false
+        },
+        {
+            "id": "14",
+            "title": "Sunrise in the Mountains",
+            "description": "First light of dawn over the mountain peaks.",
+            "imageUrl": "https://w.forfun.com/fetch/e8/e85ef3901575d4201f0d6cbb12db3124.jpeg",
+            "liked": true
+        },
+        {
+            "id": "15",
+            "title": "Green Forest",
+            "description": "Lush green forest with tall trees and sunlight filtering through.",
+            "imageUrl": "https://wallpapers.com/images/hd/forest-green-7cyu78dx9238zx0w.jpg",
+            "liked": true
+        },
+        {
+            "id": "16",
+            "title": "Невероятный пейзаж",
+            "imageUrl": "https://img.goodfon.ru/original/1920x1080/8/3e/gory-zakat-vodopad-svet-sklony.jpg",
+            "description": "Посмотри на этот невероятный пейзаж",
+            "liked": false
         }
-      ]
+    ],
+    "routes": {
+        "/photos/:id": "/photos/:id"
+    },
+    "hooks": {
+        "/photos/:id": {
+            "delete": [
+                {
+                    "script": "let id = parseInt(request.params.id); let index = db.photos.findIndex(photo => photo.id === id); if (index !== -1) { db.photos.splice(index, 1); return {} } else { return { status: 404, body: 'Photo not found' } }"
+                }
+            ]
+        }
     }
-  }
 }
