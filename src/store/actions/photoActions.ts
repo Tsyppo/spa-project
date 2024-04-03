@@ -18,7 +18,7 @@ export const fetchPhotosSuccess = (
 export const fetchPhotos = () => {
     return async (dispatch: Dispatch<PhotoAction>) => {
         try {
-            const response = await axios.get<Photo[]>('/photos')
+            const response = await axios.get<Photo[]>('/data')
             dispatch(fetchPhotosSuccess(response.data))
         } catch (error) {
             console.error('Error fetching photos:', error)
@@ -43,7 +43,7 @@ export const addPhoto = (photo: Photo) => {
                 description: photo.description || '',
                 liked: photo.liked !== undefined ? photo.liked : false,
             }
-            const response = await axios.post<Photo>('/photos', photoWithId)
+            const response = await axios.post<Photo>('/data', photoWithId)
             dispatch({
                 type: PhotoActionType.ADD_PHOTO,
                 payload: response.data,
@@ -57,7 +57,7 @@ export const addPhoto = (photo: Photo) => {
 export const removePhoto = (id: string) => {
     return async (dispatch: Dispatch<PhotoAction>) => {
         try {
-            await axios.delete(`/photos/${id}`)
+            await axios.delete(`/data/${id}`)
             dispatch({
                 type: PhotoActionType.REMOVE_PHOTO,
                 payload: id,
@@ -71,7 +71,7 @@ export const removePhoto = (id: string) => {
 export const toggleLike = (id: string, liked: boolean) => {
     return async (dispatch: Dispatch<PhotoAction>) => {
         try {
-            const response = await axios.patch<Photo>(`/photos/${id}`, {
+            const response = await axios.patch<Photo>(`/data/${id}`, {
                 liked: !liked,
             })
             dispatch({

@@ -1,15 +1,10 @@
-import React, {
-    ReactNode,
-    useCallback,
-    useEffect,
-    useMemo,
-    useState,
-} from 'react'
+import React, { ReactNode, useCallback, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 import SiteIcon from '../assets/images/Panda.svg'
 import BackgroundPng from '../assets/images/background.png'
 import { useActions } from '../hooks/useAction'
+import { useSidebarToggle } from '../hooks/useWindowWidth'
 import { useTypedSelector } from '../hooks/useTypedSelector'
 import { lightTheme, darkTheme } from '../theme/theme'
 import { englishLocale, russianLocale } from '../theme/locales'
@@ -36,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
     background-position: 180px 90px;
     z-index: -1;
     opacity: 0.3;
-    @media screen and (max-width: 540px) {
+    @media screen and (max-width: 610px) {
         background-position: 0 90px;
     }
   }
@@ -56,23 +51,11 @@ const Header = styled.header`
     @media screen and (max-width: 1920px) {
         padding: 15px;
     }
-    @media screen and (max-width: 540px) {
+    @media screen and (max-width: 610px) {
         flex-wrap: wrap;
     }
 `
-const MenuButton = styled.button`
-    display: none;
-    background: none;
-    border: none;
-    color: ${(props) => props.theme.headerText};
-    font-size: 24px;
-    margin-right: 30px;
-    cursor: pointer;
-    @media screen and (max-width: 540px) {
-        margin-top: 15px;
-        display: block;
-    }
-`
+
 const IconPanda = styled(LazyLoadImage)`
     width: 50px;
     margin-right: 10px;
@@ -93,9 +76,9 @@ const Sidebar = styled.nav`
     bottom: 0;
     margin-top: 70px;
     z-index: 100;
-    @media screen and (max-width: 540px) {
+    @media screen and (max-width: 610px) {
         display: none;
-        margin-top: 190px;
+        margin-top: 170px;
     }
 `
 
@@ -120,9 +103,9 @@ const NavLink = styled(Link)`
 
 const Content = styled.main`
     margin-top: 60px;
-    margin-left: 200px;
+    margin-left: 250px;
     padding: 20px;
-    @media screen and (max-width: 540px) {
+    @media screen and (max-width: 610px) {
         margin-left: 0px;
         margin-top: 150px;
     }
@@ -148,12 +131,26 @@ const SearchInput = styled.input`
         width: 90%;
         margin-left: 20px;
     }
-    @media screen and (max-width: 540px) {
+    @media screen and (max-width: 610px) {
         width: 95%;
         margin-left: 20px;
         flex: 0 80%;
         margin-right: 10px;
         margin-top: 10px;
+    }
+`
+
+const MenuButton = styled.button`
+    display: none;
+    background: none;
+    border: none;
+    color: ${(props) => props.theme.headerText};
+    font-size: 24px;
+    cursor: pointer;
+    margin: 0 auto 0 50px;
+    @media screen and (max-width: 610px) {
+        margin-top: 15px;
+        display: block;
     }
 `
 
@@ -163,10 +160,9 @@ const ThemeButton = styled.button`
     transition: background-color 0.3s ease;
     border: none;
     cursor: pointer;
-
-    @media screen and (max-width: 540px) {
+    @media screen and (max-width: 610px) {
         margin-top: 10px;
-        margin-left: auto;
+        margin-right: 20px;
     }
 `
 
@@ -178,9 +174,9 @@ const LanguageButton = styled.button`
     cursor: pointer;
     margin-left: 10px;
     margin-right: 30px;
-    @media screen and (max-width: 540px) {
+
+    @media screen and (max-width: 610px) {
         margin-top: 10px;
-        margin-left: auto;
     }
 `
 interface LayoutProps {
@@ -192,7 +188,7 @@ const Layout: React.FC<LayoutProps> = React.memo(({ children }) => {
     const { theme, language } = useTypedSelector((state) => state.settings)
 
     const [searchTerm, setSearchTermLocal] = useState('')
-    const [showSidebar, setShowSidebar] = useState(window.innerWidth > 540)
+    const [showSidebar, toggleSidebar] = useSidebarToggle()
 
     const handleSearchChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -217,22 +213,6 @@ const Layout: React.FC<LayoutProps> = React.memo(({ children }) => {
         () => (language === 'en' ? englishLocale : russianLocale),
         [language],
     )
-
-    const toggleSidebar = useCallback(() => {
-        setShowSidebar((prevState) => !prevState)
-    }, [])
-
-    useEffect(() => {
-        const handleResize = () => {
-            setShowSidebar(window.innerWidth > 540)
-        }
-
-        window.addEventListener('resize', handleResize)
-
-        return () => {
-            window.removeEventListener('resize', handleResize)
-        }
-    }, [])
 
     return (
         <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>

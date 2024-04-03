@@ -14,7 +14,8 @@ export const englishLocale = {
     buttonAddPhoto: 'Add',
     buttonLikePhoto: 'Like',
     buttonRemovePhoto: 'Remove',
-    clickToSave: 'Click to save',
+    clickToSave: 'Save',
+    textLogin: 'Login',
 }
 
 export const russianLocale = {
@@ -31,7 +32,8 @@ export const russianLocale = {
     mainNavFavorites: 'Избранное',
     mainNavSaved: 'Сохранённые',
     buttonAddPhoto: 'Добавить',
-    buttonLikePhoto: 'Понравилось',
+    buttonLikePhoto: 'Лайк',
     buttonRemovePhoto: 'Удалить',
-    clickToSave: 'Нажми чтобы сохранить',
+    clickToSave: 'Сохранить',
+    textLogin: 'Авторизоваться',
 }

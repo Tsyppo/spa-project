@@ -10,7 +10,7 @@ import Cookies from 'js-cookie'
 
 const Wrapper = styled.div`
     width: calc(100% - 20px);
-    max-width: 350px;
+    max-width: 285px;
     height: 450px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -74,8 +74,12 @@ const UnlikeButton = styled(Button)<{ liked: boolean }>`
 `
 
 const RemoveButton = styled(Button)`
-    margin-left: 10px;
+    margin-left: 5px;
     margin-right: auto;
+`
+
+const SavedButton = styled(Button)`
+    margin-right: 15px;
 `
 
 const StyledLink = styled(Link)`
@@ -116,15 +120,20 @@ const PhotoItem: React.FC<Props> = React.memo(({ photo }) => {
             ? JSON.parse(savedPhotosString)
             : []
 
-        savedPhotos.push(photo)
-        Cookies.set('savedPhotos', JSON.stringify(savedPhotos))
+        const isPhotoAlreadySaved = savedPhotos.some(
+            (savedPhoto: { id: string }) => savedPhoto.id === photo.id,
+        )
+
+        if (!isPhotoAlreadySaved) {
+            savedPhotos.push(photo)
+            Cookies.set('savedPhotos', JSON.stringify(savedPhotos))
+        }
     }
 
     useEffect(() => {
         const timer = setTimeout(() => {
             Cookies.remove('savedPhotos')
         }, 60000)
-
         return () => clearTimeout(timer)
     }, [])
 
@@ -152,6 +161,9 @@ const PhotoItem: React.FC<Props> = React.memo(({ photo }) => {
                 <RemoveButton onClick={handleRemove}>
                     <TitleButton>{locale.buttonRemovePhoto}</TitleButton>
                 </RemoveButton>
+                <SavedButton onClick={handleSave}>
+                    <TitleButton>{locale.clickToSave}</TitleButton>
+                </SavedButton>
             </ButtonContainer>
         </Wrapper>
     )
