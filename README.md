@@ -1,3 +1,6 @@
+# Задание: Реализовать SPA проект
+Ссылка на [гугл документ](https://docs.google.com/spreadsheets/d/1o0bzJCQNkgQbmNoJPYWCOpolYmMb2BiU_JQ-6e-xQC8/edit?gid=0#gid=0) задание по которму выплнялась работа. 
+Работа выполнена на уровень отлично.
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
